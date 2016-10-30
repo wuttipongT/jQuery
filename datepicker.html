@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Date Picker</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" media="screen" title="no title">
+    <link rel="stylesheet" href="bower_components/jquery-ui/themes/base/jquery-ui.min.css" media="screen" title="no title">
+    <style media="screen">
+    .ui-datepicker table{
+      display: none;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Date Picker</h1>
+      <form class="" action="index.html" method="post">
+        <div class="form-group">
+          <label for="">Date Picker</label>
+          <input type="text" name="name" value="2016-10" class="form-control">
+        </div>
+        <button class="btn btn-primary">click me</button>
+      </form>
+    </div>
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/jquery-ui/ui/widgets/datepicker.js"></script>
+    <script type="text/javascript">
+      $(function(){
+
+        $('form').each(function(index, el) {
+          var $form = $(this),
+          $date = $form.find("input[type='text']"),
+          $button = $form.find("button");
+xxx();
+          $date.datepicker({
+              changeMonth: true,
+              changeYear: true,
+              showButtonPanel: true,
+              dateFormat: 'yy-mm',
+              onClose: function(dateText, inst) {
+                  var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                  var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                  $(this).datepicker('setDate', new Date(year, month, 1));
+              },
+              beforeShow : function(input, inst) {
+                  if ((datestr = $(this).val()).length > 0) {
+                      actDate = datestr.split('-');
+                      year = actDate[0];
+                      month = actDate[1]-1;
+                      $(this).datepicker('option', 'defaultDate', new Date(year, month));
+                      $(this).datepicker('setDate', new Date(year, month));
+                  }
+              }
+          });
+
+          $button.on('click', function( event ){
+            event.preventDefault();
+          xxx();
+          });
+
+          function xxx(){
+              alert($date.val());
+          }
+        });
+
+      });
+
+
+
+    </script>
+  </body>
+</html>
